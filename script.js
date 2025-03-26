@@ -166,31 +166,39 @@ function showSignUpModal() {
     `;
     
     // Handle form submission
-    signUpForm.onsubmit = (e) => {
+    signUpForm.onsubmit = async (e) => {
         e.preventDefault();
         
         // Get form values
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
+        const year = document.getElementById('year').value;
         
-        // Replace form with success message
-        modalContent.innerHTML = '';
-        
-        const successMessage = document.createElement('div');
-        successMessage.classList.add('success-message');
-        successMessage.innerHTML = `
-            <h3>Thank You, ${name}!</h3>
-            <p>You've been added to our waitlist. We'll notify you at ${email} when Walnut is ready for you.</p>
-            <button class="form-button close-modal-btn">Close</button>
-        `;
-        
-        modalContent.appendChild(successMessage);
-        
-        // Add close functionality to button
-        document.querySelector('.close-modal-btn').onclick = () => {
-            document.body.removeChild(modal);
-            document.body.classList.remove('modal-open');
-        };
+        try {
+            await submitToMongoDB({ name, email, year });
+            
+            // Replace form with success message
+            modalContent.innerHTML = '';
+            
+            const successMessage = document.createElement('div');
+            successMessage.classList.add('success-message');
+            successMessage.innerHTML = `
+                <h3>Thank You, ${name}!</h3>
+                <p>You've been added to our waitlist. We'll notify you at ${email} when Walnut is ready for you.</p>
+                <button class="form-button close-modal-btn">Close</button>
+            `;
+            
+            modalContent.appendChild(successMessage);
+            
+            // Add close functionality to button
+            document.querySelector('.close-modal-btn').onclick = () => {
+                document.body.removeChild(modal);
+                document.body.classList.remove('modal-open');
+            };
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('There was an error submitting your form. Please try again later.');
+        }
     };
     
     // Append elements to modal
@@ -209,6 +217,29 @@ function showSignUpModal() {
             document.body.classList.remove('modal-open');
         }
     };
+}
+
+// Async function to submit form data to MongoDB
+async function submitToMongoDB(formData) {
+    try {
+        const response = await fetch('/api/submit-form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error submitting to MongoDB:', error);
+        throw error;
+    }
 }
 
 // Newsletter form submission
