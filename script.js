@@ -58,55 +58,20 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
-// Video placeholder click handler
-const videoPlaceholder = document.querySelector('.video-placeholder');
-if (videoPlaceholder) {
-    videoPlaceholder.addEventListener('click', () => {
-        // Show demo video modal
-        showDemoModal();
-    });
-}
+// Video placeholder click handler and "Watch Demo" button
+const watchDemoBtn = document.querySelector('.secondary-button');
 
-// Demo video modal function
-function showDemoModal() {
-    // Create modal container
-    const modal = document.createElement('div');
-    modal.classList.add('modal');
-    
-    // Create modal content
-    const modalContent = document.createElement('div');
-    modalContent.classList.add('modal-content');
-    
-    // Create close button
-    const closeBtn = document.createElement('span');
-    closeBtn.classList.add('close-btn');
-    closeBtn.innerHTML = '&times;';
-    closeBtn.onclick = () => {
-        document.body.removeChild(modal);
-        document.body.classList.remove('modal-open');
-    };
-    
-    // Create video message (placeholder for actual video)
-    const videoMessage = document.createElement('div');
-    videoMessage.classList.add('video-message');
-    videoMessage.innerHTML = '<h3>Walnut Demo</h3><p>This is where the Walnut demo video would play, showcasing our real-time transcription, translation, and AI study assistant features.</p>';
-    
-    // Append elements to modal
-    modalContent.appendChild(closeBtn);
-    modalContent.appendChild(videoMessage);
-    modal.appendChild(modalContent);
-    
-    // Add modal to body
-    document.body.appendChild(modal);
-    document.body.classList.add('modal-open');
-    
-    // Close modal when clicking outside
-    modal.onclick = (e) => {
-        if (e.target === modal) {
-            document.body.removeChild(modal);
-            document.body.classList.remove('modal-open');
+if (watchDemoBtn) {
+    watchDemoBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const demoSection = document.querySelector('#demo');
+        if (demoSection) {
+            demoSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
-    };
+    });
 }
 
 // Handle sign up buttons
