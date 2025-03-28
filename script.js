@@ -120,11 +120,13 @@ function showSignUpModal() {
             <label for="year">Year Level</label>
             <select id="year" required>
                 <option value="">Select your year</option>
-                <option value="1">First Year</option>
-                <option value="2">Second Year</option>
-                <option value="3">Third Year</option>
-                <option value="4">Fourth Year</option>
-                <option value="5">Graduate Student</option>
+                <option value="1">High School</option>
+                <option value="2">First Year</option>
+                <option value="3">Second Year</option>
+                <option value="4">Third Year</option>
+                <option value="5">Fourth Year</option>
+                <option value="6">Fifth year (+)</option>
+                <option value="7">Graduate Student</option>
             </select>
         </div>
         <button type="submit" class="form-button">Join Waitlist</button>
