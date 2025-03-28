@@ -132,8 +132,8 @@ function showSignUpModal() {
         <div class="form-group">
             <label for="school">School</label>
             <select id="school" required>
-                <option value="">UBC</option>
-                <option value="1">Other</option>
+                <option value="1">UBC</option>
+                <option value="2">Other</option>
             </select>
         </div>
         <button type="submit" class="form-button">Join Waitlist</button>
