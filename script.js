@@ -129,6 +129,13 @@ function showSignUpModal() {
                 <option value="7">Graduate Student</option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="year">School</label>
+            <select id="year" required>
+                <option value="">UBC</option>
+                <option value="1">Other</option>
+            </select>
+        </div>
         <button type="submit" class="form-button">Join Waitlist</button>
     `;
     
