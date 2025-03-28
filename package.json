@@ -1,0 +1,14 @@
+{
+  "name": "walnut-app",
+  "version": "1.0.0",
+  "description": "Walnut Smart Note-taking Platform",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "start": "node server/dist/server.js",
+    "build": "cd server && npm install && npm run build",
+    "postinstall": "npm run build"
+  },
+  "cacheDirectories": ["server/node_modules"]
+} 
