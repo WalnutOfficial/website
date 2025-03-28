@@ -16,9 +16,5 @@ npm-debug.log*
 # Mac OS files
 .DS_Store
 
-# Build directories
-/dist
-/build
-
 # Cache files
 .cache/ 
