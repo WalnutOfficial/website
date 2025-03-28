@@ -130,8 +130,8 @@ function showSignUpModal() {
             </select>
         </div>
         <div class="form-group">
-            <label for="year">School</label>
-            <select id="year" required>
+            <label for="school">School</label>
+            <select id="school" required>
                 <option value="">UBC</option>
                 <option value="1">Other</option>
             </select>
