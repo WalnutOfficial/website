@@ -6,6 +6,10 @@
     <title>Walnut - Your notes in a nutshell</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="alternate" hreflang="en" href="index.html" />
+    <link rel="alternate" hreflang="ko" href="korean.html" />
+    <link rel="alternate" hreflang="ja" href="japanese.html" />
+    <link rel="alternative" hreflang="zh" href="chinese.html" />
 </head>
 <body>
     <!-- Navigation -->
@@ -21,6 +25,18 @@
                 <a href="#product">Product</a>
                 <a href="#team">Our Team</a>
                 <a href="#pricing">Pricing</a>
+                <div class="language-dropdown">
+                    <button class="language-btn">
+                      <span class="current-lang">JA</span>
+                      <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-options">
+                      <a href="index.html" class="lang-option active">English</a>
+                      <a href="chinese.html" class="lang-option">中文</a>
+                      <a href="japanese.html" class="lang-option">日本語</a>
+                      <a href="korean.html" class="lang-option">한국어</a>
+                    </div>
+                  </div>
                 <button class="cta-button">Sign Up Now</button>
             </div>
         </div>
@@ -242,5 +258,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="language-switcher.js"></script>
 </body>
 </html> 
