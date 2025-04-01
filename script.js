@@ -45,19 +45,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   });
 });
 
-// Ensure language dropdown works properly on mobile
-const languageBtn = document.querySelector('.language-btn');
-const languageDropdown = document.querySelector('.language-dropdown');
-
-languageBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  languageDropdown.classList.toggle('active');
-});
-
-document.addEventListener('click', () => {
-  languageDropdown.classList.remove('active');
-});
-
 // Fix viewport issues on mobile
 document.head.insertAdjacentHTML('beforeend', 
   '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">');

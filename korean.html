@@ -12,31 +12,39 @@
     <link rel="alternative" hreflang="zh" href="chinese.html" />
 </head>
 <body>
+    <!-- Navigation Overlay (for mobile) -->
+    <div class="nav-overlay"></div>
+    
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#home" class="logo">
+            <div class="logo">
                 <img src="images/logo.png" alt="Walnut 로고">
-            </a>
+            </div>
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
             <div class="nav-links">
-                <a href="#home">홈</a>
-                <a href="#demo">데모</a>
-                <a href="#why-walnut">Walnut을 만든 이유</a>
-                <a href="#product">제품</a>
-                <a href="#team">팀 소개</a>
-                <a href="#pricing">가격</a>
                 <div class="language-dropdown">
                     <button class="language-btn">
                       <span class="current-lang">KO</span>
                       <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="language-options">
-                        <a href="index.html" class="lang-option">English</a>
-                        <a href="chinese.html" class="lang-option">中文</a>
-                        <a href="japanese.html" class="lang-option">日本語</a>
-                        <a href="korean.html" class="lang-option active">한국어</a>
+                      <a href="index.html" class="lang-option">English</a>
+                      <a href="chinese.html" class="lang-option">中文</a>
+                      <a href="japanese.html" class="lang-option">日本語</a>
+                      <a href="korean.html" class="lang-option active">한국어</a>
                     </div>
-                  </div>
+                </div>
+                <a href="#home">홈</a>
+                <a href="#demo">데모</a>
+                <a href="#why-walnut">Walnut을 만든 이유</a>
+                <a href="#product">제품</a>
+                <a href="#team">팀 소개</a>
+                <a href="#pricing">가격</a>
                 <button class="cta-button">지금 가입하기</button>
             </div>
         </div>
