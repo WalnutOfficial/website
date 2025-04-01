@@ -631,6 +631,7 @@ body {
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
         transition: right 0.3s ease-in-out;
         z-index: 1000;
+        overflow-y: auto;
     }
     
     .nav-links.active {
@@ -641,6 +642,29 @@ body {
     .nav-links .language-dropdown,
     .nav-links .cta-button {
         margin: 0.5rem 0;
+    }
+    
+    /* Ensure language dropdown appears correctly in mobile */
+    .language-dropdown {
+        margin: 0.5rem 0 1.5rem;
+        width: 100%;
+    }
+    
+    .language-options {
+        position: static;
+        width: 100%;
+        margin-top: 0.5rem;
+        border-radius: 4px;
+        opacity: 0;
+        visibility: hidden;
+        transform: none;
+        box-shadow: none;
+        border: 1px solid #eee;
+    }
+    
+    .language-dropdown.active .language-options {
+        opacity: 1;
+        visibility: visible;
     }
     
     /* Animated Hamburger */
