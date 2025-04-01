@@ -49,7 +49,12 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-app.use(express_1.default.static(path.join(__dirname, '../../'))); // Serve static files from the root directory
+// Set static folder based on environment
+// In Heroku, the app will be in server/dist so we need to serve from ../../
+const staticPath = process.env.NODE_ENV === 'production'
+    ? path.join(__dirname, '../../')
+    : path.join(__dirname, '../../');
+app.use(express_1.default.static(staticPath));
 // MongoDB Connection
 const uri = process.env.MONGODB_URI || '';
 const client = new mongodb_1.MongoClient(uri);
@@ -108,6 +113,10 @@ app.post('/api/submit-form', async (req, res) => {
             message: 'Server error while processing your request'
         });
     }
+});
+// For all other GET requests, serve the main index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(staticPath, 'index.html'));
 });
 // Start the server
 app.listen(PORT, () => {
