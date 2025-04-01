@@ -405,4 +405,111 @@ style.textContent = `
         overflow: hidden;
     }
 `;
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+// Cookie consent handling
+document.addEventListener('DOMContentLoaded', function() {
+    const hasConsent = localStorage.getItem('cookieConsent');
+    
+    if (!hasConsent) {
+        showCookieConsentBanner();
+    }
+    
+    // Handle video placeholders
+    setupVideoPlaceholders();
+});
+
+function showCookieConsentBanner() {
+    const cookieBanner = document.createElement('div');
+    cookieBanner.classList.add('cookie-consent');
+    cookieBanner.innerHTML = `
+        <div class="cookie-text">
+            <p>We use cookies to improve your experience and to show you relevant content. 
+            By using our website, you agree to our use of cookies.</p>
+        </div>
+        <div class="cookie-buttons">
+            <button class="cookie-btn cookie-accept">Accept All</button>
+            <button class="cookie-btn cookie-decline">Essential Only</button>
+        </div>
+    `;
+    
+    document.body.appendChild(cookieBanner);
+    
+    // Accept button
+    cookieBanner.querySelector('.cookie-accept').addEventListener('click', function() {
+        localStorage.setItem('cookieConsent', 'full');
+        localStorage.setItem('videoConsent', 'accepted');
+        cookieBanner.remove();
+        setupVideoPlaceholders(true);
+    });
+    
+    // Decline button
+    cookieBanner.querySelector('.cookie-decline').addEventListener('click', function() {
+        localStorage.setItem('cookieConsent', 'essential');
+        cookieBanner.remove();
+    });
+}
+
+function setupVideoPlaceholders(autoConsent = false) {
+    const videoWrappers = document.querySelectorAll('.video-wrapper');
+    const videoConsent = localStorage.getItem('videoConsent') === 'accepted' || autoConsent;
+    
+    videoWrappers.forEach(wrapper => {
+        const videoId = wrapper.getAttribute('data-video-id');
+        const placeholder = wrapper.querySelector('.video-placeholder');
+        
+        if (!placeholder) return;
+        
+        placeholder.addEventListener('click', function() {
+            if (videoConsent) {
+                loadVideo(wrapper, videoId);
+            } else {
+                showVideoConsentOverlay(wrapper, videoId);
+            }
+        });
+    });
+}
+
+function showVideoConsentOverlay(wrapper, videoId) {
+    // Create consent overlay
+    const overlay = document.createElement('div');
+    overlay.classList.add('video-consent-overlay');
+    overlay.innerHTML = `
+        <p>This video is hosted on Google Drive and requires cookies to play.</p>
+        <p>Do you consent to load external content?</p>
+        <div class="video-consent-buttons">
+            <button class="cookie-btn cookie-accept">Accept</button>
+            <button class="cookie-btn cookie-decline">Decline</button>
+        </div>
+    `;
+    
+    // Add overlay to wrapper
+    wrapper.querySelector('.video-placeholder').appendChild(overlay);
+    
+    // Accept button
+    overlay.querySelector('.cookie-accept').addEventListener('click', function(e) {
+        e.stopPropagation();
+        localStorage.setItem('videoConsent', 'accepted');
+        loadVideo(wrapper, videoId);
+    });
+    
+    // Decline button
+    overlay.querySelector('.cookie-decline').addEventListener('click', function(e) {
+        e.stopPropagation();
+        overlay.remove();
+    });
+}
+
+function loadVideo(wrapper, videoId) {
+    // Create and insert iframe
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://drive.google.com/file/d/${videoId}/preview`;
+    iframe.style.width = '100%';
+    iframe.style.aspectRatio = '16/9';
+    iframe.allow = 'autoplay';
+    iframe.allowFullscreen = true;
+    
+    // Replace placeholder with iframe
+    wrapper.innerHTML = '';
+    wrapper.appendChild(iframe);
+} 
