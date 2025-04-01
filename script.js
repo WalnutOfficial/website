@@ -12,48 +12,58 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Mobile Navigation Menu
+// Mobile Navigation Menu (updated)
 const hamburger = document.querySelector('.hamburger-menu');
 const navLinks = document.querySelector('.nav-links');
-const navOverlay = document.querySelector('.nav-overlay');
-const body = document.body;
-const mobileLinks = document.querySelectorAll('.nav-links a');
+const navOverlay = document.createElement('div');
+navOverlay.classList.add('nav-overlay');
+document.body.appendChild(navOverlay);
 
-// Toggle menu when hamburger is clicked
 hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-    navOverlay.classList.toggle('active');
-    body.classList.toggle('menu-open');
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('active');
+  navOverlay.classList.toggle('active');
+  
+  // Prevent scrolling when menu is open
+  document.body.style.overflow = hamburger.classList.contains('active') ? 'hidden' : '';
 });
 
-// Close menu when overlay is clicked
 navOverlay.addEventListener('click', () => {
+  hamburger.classList.remove('active');
+  navLinks.classList.remove('active');
+  navOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+});
+
+// Close mobile menu when clicking on a nav link
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
     hamburger.classList.remove('active');
     navLinks.classList.remove('active');
     navOverlay.classList.remove('active');
-    body.classList.remove('menu-open');
+    document.body.style.overflow = '';
+  });
 });
 
-// Close menu when a link is clicked
-mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-        navOverlay.classList.remove('active');
-        body.classList.remove('menu-open');
-    });
+// Ensure language dropdown works properly on mobile
+const languageBtn = document.querySelector('.language-btn');
+const languageDropdown = document.querySelector('.language-dropdown');
+
+languageBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  languageDropdown.classList.toggle('active');
 });
 
-// Close menu on resize (if user resizes to desktop)
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-        navOverlay.classList.remove('active');
-        body.classList.remove('menu-open');
-    }
+document.addEventListener('click', () => {
+  languageDropdown.classList.remove('active');
 });
+
+// Fix viewport issues on mobile
+document.head.insertAdjacentHTML('beforeend', 
+  '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">');
+
+// Add touch support for mobile users
+document.addEventListener('touchstart', function() {}, {passive: true});
 
 // Navbar scroll behavior
 const navbar = document.querySelector('.navbar');
